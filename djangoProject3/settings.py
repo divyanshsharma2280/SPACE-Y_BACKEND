@@ -9,8 +9,8 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import dj_database_url
 import environ
-
 env = environ.Env()
 environ.Env.read_env()
 
@@ -89,6 +89,9 @@ WSGI_APPLICATION = 'djangoProject3.wsgi.application'
 
 # Your secret key
 
+import dj_database_url
+
+# Your existing database settings using environment variables
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -99,6 +102,11 @@ DATABASES = {
         'PORT': env("DB_PORT"),
     }
 }
+
+# Parse the database URL and update the 'default' database settings
+DATABASES['default'].update(dj_database_url.parse("postgres://spacey_g5z0_user:iujmlJSz3ZUCGQH9FDwIhseBfzje7Qav@dpg"
+                                                  "-co9c2ccf7o1s739685d0-a.oregon-postgres.render.com/spacey_g5z0"))
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
